@@ -2,7 +2,8 @@
  Converts SRT subtitle file to SSML file with speech durations. 
 
 ### Use Cases
-- Enables automated translation and dubbing of videos while keeping the dub in sync. You can simply translate the text portions of the subtitles before feeding it into the script. This allows the translations of each line remain the same length of the original speech, so the generated speech should theoretically be a drop-in replacement of the original.
+- Using TTS to generate speech for a video using only subtitles
+- Automated translation and dubbing of videos while keeping the dub in sync. You can simply translate the text portions of the subtitles before feeding it into the script. This allows the translations of each line remain the same length of the original speech, so the generated speech should theoretically be a drop-in replacement of the original.
 
 ### How it Works:
 - It takes the text lines from the subtitle file and puts each on a separate line within the `speak` tag
