@@ -124,7 +124,7 @@ with open(outputFile, 'w', encoding=chosenFileEncoding) as f:
             breakTime = str(value['break_until_next'])
             breakTimeString = f'<break time="{breakTime}ms"/>'
 
-        texToWrite = (f'\t<prosody {durationAttributeName}="{value["duration_ms"]}ms">{value["text"]}{breakTimeString}</prosody>\n')
+        texToWrite = (f'\t<prosody {durationAttributeName}="{value["duration_ms"]}ms">{value["text"]}</prosody>{breakTimeString}\n')
         # Remove the extra indentation from using triple quotations
         
         f.write(texToWrite)
