@@ -5,6 +5,10 @@
 #--------------------------------------------------------------
 import re
 
+#====================================================================================================
+#======================================== USER VARIABLES ============================================
+#====================================================================================================
+
 #------- Basic Options -------
 # Path to Subtitles File
 srtFile = "subtitles.srt"
@@ -43,6 +47,8 @@ xmlnsAttributesDict = {
 
 
 #====================================================================================================
+#====================================== Start Program ===============================================
+#====================================================================================================
 # Sets the schemaLocation attribute based on the SSML version you chose
 if includeSchemaLocation:
     xmlnsAttributesDict["xmlns:xsi"] = "http://www.w3.org/2001/XMLSchema-instance"
@@ -57,7 +63,11 @@ for key, value in xmlnsAttributesDict.items():
     xmlnsAttributesString += f"{key}=\"{value}\" "
 xmlnsAttributesString = xmlnsAttributesString.strip() # Remove extra space at end
 
-# --------------- Parse SRT File ---------------
+
+
+
+
+#======================================== Parse SRT File ================================================
 # Open an srt file and read the lines into a list
 with open(srtFile, 'r') as f:
     lines = f.readlines()
@@ -99,7 +109,7 @@ for lineNum, line in enumerate(lines):
         else:
             subsDict[line]['break_until_next'] = '0'
 
-# --------------- Create a new file ---------------
+#=========================================== Create SSML File ============================================
 # Make voice tag if applicable
 if voiceName is None or voiceName == '' or voiceName.lower() == 'none':
     voiceTag = ''
@@ -129,4 +139,3 @@ with open(outputFile, 'w', encoding=chosenFileEncoding) as f:
         
         f.write(texToWrite)
     f.write(f'{voiceTagEnd}</speak>')
-
