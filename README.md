@@ -17,6 +17,7 @@
 - xmlns Attributes for <speak> tag
 - Whether to include the `xmlns:xsi` and `xsi:schemaLocation` attributes
 - Input and Output file names (Defaults: `subtitles.srt` for input and `SSML.txt` for output)
+- Duration Attribute Name (Allows support for Amazon Polly which uses `amazon:max-duration` instead of 'duration')
 
 # Example
 ### Input (SRT Subtitle File)
