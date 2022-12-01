@@ -1,7 +1,13 @@
 # SRT-To-SSML
- Converts SRT subtitle file to SSML file with speech durations
+ Converts SRT subtitle file to SSML file with speech durations. 
+ 
+### How it Works:
+- It takes the text lines from the subtitle file and puts each on a separate line within the `speak` tag
+- It takes the timestamps for the start/end for each subtitle line, and calculates that time difference in milliseconds. Then uses that for the `duration` attribute for the `prosody` tag. This tells the TTS how long it should take to say the line, so it will stay in sync with the original video.
+  - Warning: Not many neural TTS services support this duration feature, so this may not work as expected.
+- It also calculates the time difference between the end of one subtitle line and the beginning of the next, and uses that as the `time` attribute for the `break` tag at the end of each text line. This is also to keep it in sync with the original video.
 
-## SSML Options Changeable With Variables
+### SSML Options Changeable With Variables
 - Language
 - TTS Voice Name
 - SSML Version
