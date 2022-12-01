@@ -16,6 +16,10 @@ outputFile = "SSML.txt"
 language = "en-US"
     # Voice Name - To not specify a voice, put nothing between the quotes or set value to None
 voiceName = "en-US-DavisNeural"
+    # Duration Attribute Name - The standard name for this attribute within the 'prosody' tag is 'duration', however some services may use their own name, such as Amazon Polly.
+    # Default/Standard: "duration"
+    # Amazon Polly: "amazon:max-duration"  # See: https://docs.aws.amazon.com/polly/latest/dg/supportedtags.html#maxduration-tag
+durationAttributeName = "duration"
 
 #------- Advanced SSML Options -------
     # SSML Version
@@ -120,7 +124,7 @@ with open(outputFile, 'w', encoding=chosenFileEncoding) as f:
             breakTime = str(value['break_until_next'])
             breakTimeString = f'<break time="{breakTime}ms"/>'
 
-        texToWrite = (f'\t<prosody duration="{value["duration_ms"]}ms">{value["text"]}{breakTimeString}</prosody>\n')
+        texToWrite = (f'\t<prosody {durationAttributeName}="{value["duration_ms"]}ms">{value["text"]}{breakTimeString}</prosody>\n')
         # Remove the extra indentation from using triple quotations
         
         f.write(texToWrite)
