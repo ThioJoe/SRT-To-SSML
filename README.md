@@ -1,14 +1,14 @@
 # SRT-To-SSML
  Converts SRT subtitle file to SSML file with speech durations. 
- 
+
+### Use Cases
+- Enables automated translation and dubbing of videos while keeping the dub in sync. You can simply translate the text portions of the subtitles before feeding it into the script. This allows the translations of each line remain the same length of the original speech, so the generated speech should theoretically be a drop-in replacement of the original.
+
 ### How it Works:
 - It takes the text lines from the subtitle file and puts each on a separate line within the `speak` tag
 - It takes the timestamps for the start/end for each subtitle line, and calculates that time difference in milliseconds. Then uses that for the `duration` attribute for the `prosody` tag. This tells the TTS how long it should take to say the line, so it will stay in sync with the original video.
   - Warning: Not many neural TTS services support this duration feature, so this may not work as expected.
 - It also calculates the time difference between the end of one subtitle line and the beginning of the next, and uses that as the `time` attribute for the `break` tag at the end of each text line. This is also to keep it in sync with the original video.
-
-# Use Cases
-- Enables automated translation and dubbing of videos while keeping the dub in sync. You can simply translate the text portions of the subtitles before feeding it into the script. This allows the translations of each line remain the same length of the original speech, so the generated speech should theoretically be a drop-in replacement of the original.
 
 ### SSML Options Changeable With Variables
 - Language
