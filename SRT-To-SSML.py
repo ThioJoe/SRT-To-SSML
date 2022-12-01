@@ -24,6 +24,8 @@ voiceName = "en-US-DavisNeural"
     # Default/Standard: "duration"
     # Amazon Polly: "amazon:max-duration"  # See: https://docs.aws.amazon.com/polly/latest/dg/supportedtags.html#maxduration-tag
 durationAttributeName = "duration"
+    # Whether to escape special characters in the text. Possible Values: True, False
+enableCharacterEscape = True
 
 #------- Advanced SSML Options -------
     # SSML Version
@@ -63,8 +65,15 @@ for key, value in xmlnsAttributesDict.items():
     xmlnsAttributesString += f"{key}=\"{value}\" "
 xmlnsAttributesString = xmlnsAttributesString.strip() # Remove extra space at end
 
-
-
+# Creates function to escape special characters such as: " & ' < >
+def escapeChars(enableCharacterEscape, text):
+    if enableCharacterEscape:
+        text = text.replace("&", "&amp;")
+        text = text.replace('"', "&quot;")
+        text = text.replace("'", "&apos;")
+        text = text.replace("<", "&lt;")
+        text = text.replace(">", "&gt;")
+    return text
 
 
 #======================================== Parse SRT File ================================================
@@ -133,9 +142,11 @@ with open(outputFile, 'w', encoding=chosenFileEncoding) as f:
         else:
             breakTime = str(value['break_until_next'])
             breakTimeString = f'<break time="{breakTime}ms"/>'
-
-        texToWrite = (f'\t<prosody {durationAttributeName}="{value["duration_ms"]}ms">{value["text"]}</prosody>{breakTimeString}\n')
-        # Remove the extra indentation from using triple quotations
         
+        # Get and escape text, then write
+        text = escapeChars(enableCharacterEscape, value['text'])
+        # Format each line of text, then write
+        texToWrite = (f'\t<prosody {durationAttributeName}="{value["duration_ms"]}ms">{text}</prosody>{breakTimeString}\n')
         f.write(texToWrite)
+
     f.write(f'{voiceTagEnd}</speak>')
