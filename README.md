@@ -7,6 +7,9 @@
   - Warning: Not many neural TTS services support this duration feature, so this may not work as expected.
 - It also calculates the time difference between the end of one subtitle line and the beginning of the next, and uses that as the `time` attribute for the `break` tag at the end of each text line. This is also to keep it in sync with the original video.
 
+# Use Cases
+- Enables automated translation and dubbing of videos while keeping the dub in sync. You can simply translate the text portions of the subtitles before feeding it into the script. This allows the translations of each line remain the same length of the original speech, so the generated speech should theoretically be a drop-in replacement of the original.
+
 ### SSML Options Changeable With Variables
 - Language
 - TTS Voice Name
