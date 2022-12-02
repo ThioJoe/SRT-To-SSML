@@ -46,7 +46,7 @@ nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qu
 
 
 ### Output
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <speak xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="http://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2001/10/synthesis http://www.w3.org/TR/speech-synthesis/synthesis.xsd" version="1.0" xml:lang="en-US"><voice name="en-US-DavisNeural">
 	<prosody duration="4910ms">This is an example of a subtitle file with a bunch of random words I've added with various timestamps.<break time="190ms"/></prosody>
