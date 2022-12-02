@@ -37,11 +37,11 @@ veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
 
 4
 00:00:14,340 --> 00:00:19,930
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla.
 
 5
 00:00:20,130 --> 00:00:23,419
-nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.
+Now some examples of some escaped characters such as & and ' and " and < and > just to name a few
 ```
 
 
@@ -50,9 +50,9 @@ nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qu
 <?xml version="1.0" encoding="UTF-8"?>
 <speak xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="http://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2001/10/synthesis http://www.w3.org/TR/speech-synthesis/synthesis.xsd" version="1.0" xml:lang="en-US"><voice name="en-US-DavisNeural">
 	<prosody duration="4910ms">This is an example of a subtitle file with a bunch of random words I&apos;ve added with various timestamps.</prosody><break time="190ms"/>
-	<prosody duration="8050ms">Lorem ipsum dolor sit amet, &lt;&gt;&lt; consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim</prosody><break time="190ms"/>
+	<prosody duration="8050ms">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim</prosody><break time="190ms"/>
 	<prosody duration="770ms">veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</prosody><break time="90ms"/>
-	<prosody duration="5590ms">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat</prosody><break time="200ms"/>
-	<prosody duration="3289ms">nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</prosody>
+	<prosody duration="5590ms">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla.</prosody><break time="200ms"/>
+	<prosody duration="3289ms">Now some examples of some escaped characters such as &amp; and &apos; and &quot; and &lt; and &gt; just to name a few</prosody>
 </voice></speak>
 ```
