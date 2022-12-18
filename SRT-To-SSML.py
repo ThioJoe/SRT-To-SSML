@@ -78,7 +78,7 @@ def escapeChars(enableCharacterEscape, text):
 
 #======================================== Parse SRT File ================================================
 # Open an srt file and read the lines into a list
-with open(srtFile, 'r') as f:
+with open(srtFile, 'r', encoding='utf-8-sig') as f:
     lines = f.readlines()
 
 # Matches the following example with regex:    00:00:20,130 --> 00:00:23,419
