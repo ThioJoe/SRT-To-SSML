@@ -1,5 +1,7 @@
 # SRT-To-SSML
  Converts SRT subtitle file to SSML file with speech durations. 
+ 
+#### Note: If looking for a more comprenehsive script for also generating synced dubs, visit [my other repo](https://github.com/ThioJoe/Auto-Synced-Translated-Dubs).
 
 ### Use Cases
 - Using TTS to generate speech for a video using only subtitles
