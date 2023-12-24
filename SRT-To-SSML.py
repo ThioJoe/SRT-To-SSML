@@ -17,7 +17,9 @@ outputFile = "SSML.txt"
 
 #------- SSML Options -------
     # Service Mode - Automaticaly adjusts some variables depending on the TTS service
-serviceMode = "generic" # Possible Values: "azure", "amazon", "generic"
+    # Note: Amazon Polly only supports the duration feature on non-neural voices. Only Azure currently supports duration on neural voices.
+    # Default: "generic"
+serviceMode = "amazon-standard-voice" # Possible Values: "azure", "amazon-standard-voice", "generic"
     # Language
 language = "en-US"
     # Voice Name - To not specify a voice, put nothing between the quotes or set value to None
@@ -65,7 +67,7 @@ overrideDurationAttributeName = False # Default: False
 serviceMode = serviceMode.lower()
 useInnerDurationTag = False
 # Only need to set this for Amazon, because it isnt used for Azure
-if serviceMode == "amazon":
+if serviceMode == "amazon-standard-voice":
     durationAttributeName = "amazon:max-duration"
 elif serviceMode == "azure":
     useInnerDurationTag = True
