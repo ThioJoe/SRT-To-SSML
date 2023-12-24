@@ -10,11 +10,12 @@
 ### How it Works:
 - It takes the text lines from the subtitle file and puts each on a separate line within the `speak` tag
 - It takes the timestamps for the start/end for each subtitle line, and calculates that time difference in milliseconds. Then uses that for the `duration` attribute for the `prosody` tag. This tells the TTS how long it should take to say the line, so it will stay in sync with the original video.
-  - Note: Not every neural TTS service supports/uses the duration feature. Amazon Polly and Azure Speech do but use their own tags, which this script will automatically use instead.
+  - Note: Not every neural TTS service supports/uses the duration feature. Amazon Polly non-neural voices and Azure Speech do, but use their own tags, which this script will automatically use instead.
 - It also calculates the time difference between the end of one subtitle line and the beginning of the next, and uses that as the `time` attribute for the `break` tag at the end of each text line. This is also to keep it in sync with the original video.
 
 ### Other Notable Features
-- Automatic tag configuration based on TTS service (currently supports Microsoft Azure and Amazon Polly)
+- Automatic tag configuration based on TTS service (currently supports Microsoft Azure and Amazon Polly non-neural voices)
+  - Note: Currently only Azure Speech seems to support specifying the duration of speech for neural voices. Therefore that is the only service that can properly take advantage of this script. Amazon Polly does too, but only for standard non-neural voices.
 
 ### SSML Options Changeable With Variables
 - Language
