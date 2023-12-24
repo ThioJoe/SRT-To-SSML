@@ -13,6 +13,9 @@
   - Warning: Not many neural TTS services support this duration feature, so this may not work as expected.
 - It also calculates the time difference between the end of one subtitle line and the beginning of the next, and uses that as the `time` attribute for the `break` tag at the end of each text line. This is also to keep it in sync with the original video.
 
+### Other Notable Features
+- Automatic tag configuration based on TTS service (currently supports Microsoft Azure and Amazon Polly)
+
 ### SSML Options Changeable With Variables
 - Language
 - TTS Voice Name
@@ -20,7 +23,7 @@
 - xmlns Attributes for <speak> tag
 - Whether to include the `xmlns:xsi` and `xsi:schemaLocation` attributes
 - Input and Output file names (Defaults: `subtitles.srt` for input and `SSML.txt` for output)
-- Duration Attribute Name (Allows support for Amazon Polly which uses `amazon:max-duration` instead of 'duration')
+- Duration Attribute Name
 
 # Example
 ### Input (SRT Subtitle File)
