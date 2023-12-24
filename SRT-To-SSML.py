@@ -16,14 +16,12 @@ srtFile = r"subtitles.srt"
 outputFile = "SSML.txt"
 
 #------- SSML Options -------
+    # Service Mode - Automaticaly adjusts some variables depending on the TTS service
+serviceMode = "generic" # Possible Values: "azure", "amazon", "generic"
     # Language
 language = "en-US"
     # Voice Name - To not specify a voice, put nothing between the quotes or set value to None
 voiceName = "en-US-DavisNeural"
-    # Duration Attribute Name - The standard name for this attribute within the 'prosody' tag is 'duration', however some services may use their own name, such as Amazon Polly.
-    # Default/Standard: "duration"
-    # Amazon Polly: "amazon:max-duration"  # See: https://docs.aws.amazon.com/polly/latest/dg/supportedtags.html#maxduration-tag
-durationAttributeName = "duration"
     # Whether to escape special characters in the text. Possible Values: True, False
 enableCharacterEscape = True
 
@@ -47,10 +45,36 @@ xmlnsAttributesDict = {
     #"xsi:schemaLocation":  # Don't uncomment this, refer to "includeSchemaLocation" option above
 }
 
+# ------- Other Optional Advanced Settings You Probably Don't Need to Worry About -------
+    # NOTE: The script will already automatically account for Microsoft Azure and Amazon Polly, but if you are using a different service, you may wish to change this.
+    # Duration Attribute Name - The standard name for this attribute within the 'prosody' tag is 'duration', however some services may use their own name.
+    # Default/Standard: "duration"
+durationAttributeName = "duration"
+    # If you are using Azure or Amazon, but want to force force the use of the durationAttributeName instead whatever one would be set autoamtically.
+    # You probably don't need to change this.
+overrideDurationAttributeName = False # Default: False
+
+# ---- Possibly Helpful Resources -----
+# Amazon Polly Duration Tag Info: "amazon:max-duration"  # See: https://docs.aws.amazon.com/polly/latest/dg/supportedtags.html#maxduration-tag
 
 #====================================================================================================
 #====================================== Start Program ===============================================
 #====================================================================================================
+
+# ---- Prepare variables with correct formatting ----
+serviceMode = serviceMode.lower()
+useInnerDurationTag = False
+# Only need to set this for Amazon, because it isnt used for Azure
+if serviceMode == "amazon":
+    durationAttributeName = "amazon:max-duration"
+elif serviceMode == "azure":
+    useInnerDurationTag = True
+
+# If user chooses to override automatic tag
+if overrideDurationAttributeName:
+    durationAttributeName = overrideDurationAttributeName
+
+
 # Sets the schemaLocation attribute based on the SSML version you chose
 if includeSchemaLocation:
     xmlnsAttributesDict["xmlns:xsi"] = "http://www.w3.org/2001/XMLSchema-instance"
@@ -138,11 +162,21 @@ else:
    voiceTag = '<voice name="' + voiceName + '">'
    voiceTagEnd = '</voice>'
 
+# Set Up Special Tag If Necessary
+if useInnerDurationTag:
+    if serviceMode == "azure":
+        specialDurationTag = "mstts:audioduration"
+else:
+    useSpecialDurationTag = None
+
 # Encoding with utf-8-sig adds BOM to the beginning of the file, because use with Azure requires it
 with open(outputFile, 'w', encoding=chosenFileEncoding) as f:
     # Write the header
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-    f.write(f'<speak {xmlnsAttributesString} version="{ssmlVersion}" xml:lang="{language}">{voiceTag}\n')
+    f.write(f'<speak {xmlnsAttributesString} version="{ssmlVersion}" xml:lang="{language}">\n')
+    # If using Azure, each duration tag must be inside a voice tag, so need to write voice tag later
+    if not serviceMode == "azure":
+        f.write(f'{voiceTag}\n')
 
     # Write SSML tags with the text and duration from the dictionary
     # Prosody Syntax: https://www.w3.org/TR/speech-synthesis11/#S3.2.4
@@ -157,7 +191,14 @@ with open(outputFile, 'w', encoding=chosenFileEncoding) as f:
         # Get and escape text, then write
         text = escapeChars(enableCharacterEscape, value['text'])
         # Format each line of text, then write
-        texToWrite = (f'\t<prosody {durationAttributeName}="{value["duration_ms"]}ms">{text}</prosody>{breakTimeString}\n')
-        f.write(texToWrite)
+        if not useInnerDurationTag:
+            textToWrite = (f'\t<prosody {durationAttributeName}="{value["duration_ms"]}ms">{text}</prosody>{breakTimeString}\n')
+        else:
+            textToWrite = (f'\t{voiceTag}<{specialDurationTag}="{value["duration_ms"]}ms"/>{text}{voiceTagEnd}{breakTimeString}\n')
+        f.write(textToWrite)
 
-    f.write(f'{voiceTagEnd}</speak>')
+    # Write ending voice tag if applicable
+    if not useInnerDurationTag:
+        f.write(f'{voiceTagEnd}\n')
+    # Write ending speak tag
+    f.write('</speak>\n')
