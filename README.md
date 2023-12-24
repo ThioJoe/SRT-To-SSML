@@ -1,7 +1,7 @@
 # SRT-To-SSML
  Converts SRT subtitle file to SSML file with speech durations. 
  
-#### Note: If looking for a more comprehensive script for also generating synced and translated dubs, visit [my other repo](https://github.com/ThioJoe/Auto-Synced-Translated-Dubs).
+#### Note: If looking for a more comprehensive tool for also generating synced and translated dubs, visit [my other repo](https://github.com/ThioJoe/Auto-Synced-Translated-Dubs).
 
 ### Use Cases
 - Using TTS to generate speech for a video using only subtitles
@@ -10,7 +10,7 @@
 ### How it Works:
 - It takes the text lines from the subtitle file and puts each on a separate line within the `speak` tag
 - It takes the timestamps for the start/end for each subtitle line, and calculates that time difference in milliseconds. Then uses that for the `duration` attribute for the `prosody` tag. This tells the TTS how long it should take to say the line, so it will stay in sync with the original video.
-  - Warning: Not many neural TTS services support this duration feature, so this may not work as expected.
+  - Note: Not every neural TTS service supports/uses the duration feature. Amazon Polly and Azure Speech do but use their own tags, which this script will automatically use instead.
 - It also calculates the time difference between the end of one subtitle line and the beginning of the next, and uses that as the `time` attribute for the `break` tag at the end of each text line. This is also to keep it in sync with the original video.
 
 ### Other Notable Features
